@@ -1,2 +1,2 @@
-# cmplot-python
-Cloudy Mountain Plot function in Python
+# cmplot.py - Cloudy Mountain Plot in python
+
