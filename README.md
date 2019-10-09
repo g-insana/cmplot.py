@@ -29,6 +29,7 @@ There is also a [version in Julia](https://github.com/g-insana/CMPlot.jl/).
 ## Tutorial
 
 Check the [jupyter notebook](cmplot_python3_with_examples.ipynb) for usage and examples. You can use the jupyter notebook for fast experimentation or download the module and use it in your data mining and data visualization projects.
+Note: if the version on github is not rendering properly, try [this one, via nbviewer.jupyter.org](https://nbviewer.jupyter.org/github/g-insana/cmplot.py/blob/master/cmplot_python3_with_examples.ipynb).
 
 ## Quickstart
 
