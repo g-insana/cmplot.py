@@ -12,7 +12,7 @@ An informative RDI categorical distribution plot inspired by Violin, Bean and Pi
 
 Since by default it does not symmetrically mirror the density curves, it allows immediate comparisions of distributions side-by-side.
 
-![Elements of a cloudy mountain plot](https://github.com/g-insana/cmplot.py/img/cmplot_elements.png)
+![Elements of a cloudy mountain plot](img/cloudy_mountain_plot_elements.png)
 
 The plotting function comes with a large number of options, allowing full customization of the results. On the other hand it is also automatic enough to be able to work with only two arguments: a dataframe and the label/symbol of the dataframe column containing your X (the categorical data).
 
@@ -28,7 +28,7 @@ There is also a [version in Julia](https://github.com/g-insana/CMPlot.jl/).
 
 ## Tutorial
 
-Check the [jupyter notebook](https://github.com/g-insana/cmplot.py/cmplot_python3_with_examples.ipynb) for usage and examples. You can use the jupyter notebook for fast experimentation or download the module and use it in your data mining and data visualization projects.
+Check the [jupyter notebook](cmplot_python3_with_examples.ipynb) for usage and examples. You can use the jupyter notebook for fast experimentation or download the module and use it in your data mining and data visualization projects.
 
 ## Quickstart
 
