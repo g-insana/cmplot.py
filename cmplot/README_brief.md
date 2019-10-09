@@ -34,7 +34,7 @@ Check the online documentation and jupyter notebook for usage and examples at th
 
  #call the cmplot directly inside a plotly Figure function as:
 
->>> go.Figure(\*cmplot(mydataframe,xcol="xsymbol"))
+>>> go.Figure(*cmplot(mydataframe,xcol="xsymbol"))
 
  #alternatively get traces and layout as separate variables, so that you can modify them or combine with others before passing them to Figure() function:
 
