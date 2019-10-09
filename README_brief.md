@@ -17,7 +17,7 @@ Since by default it does not symmetrically mirror the density curves, it allows 
 `cmplot` is pure python code. It has no platform-specific dependencies and should thus work on all platforms. It requires the packages `plotly numpy scipy pandas`. The latest version of `cmplot` can be installed by typing:
 
 ``` bash
-> pip install git+git://github.com/g-insana/cmplot.py.git
+> pip3 install git+git://github.com/g-insana/cmplot.py.git
 ```
 
 There is also a [version in Julia](https://github.com/g-insana/CMPlot.jl/).
