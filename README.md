@@ -21,13 +21,13 @@ The plotting function comes with a large number of options, allowing full custom
 `cmplot` is pure python code. It has no platform-specific dependencies and should thus work on all platforms. It requires the packages `plotly numpy scipy pandas`. The latest version of `cmplot` can be installed by typing either:
 
 ``` bash
-> pip3 install cmplot
+pip3 install cmplot
 ```
   (from [Python Package Index](https://pypi.org/project/cmplot/))
 
 or:
-```
-> pip3 install git+git://github.com/g-insana/cmplot.py.git
+``` bash
+pip3 install git+git://github.com/g-insana/cmplot.py.git
 ```
   (from [GitHub](https://github.com/g-insana/cmplot.py/)).
 
