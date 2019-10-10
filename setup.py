@@ -12,8 +12,8 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/g-insana/cmplot.py",
-    license='AGPL',
-    packages=setuptools.find_packages(),
+    license="AGPL",
+    py_modules=["cmplot"],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: AGPL License",
@@ -25,5 +25,5 @@ setuptools.setup(
         "pandas",
         "scipy"
     ],
-    python_requires='>=3.6',
+    python_requires=">=3.6",
 )
