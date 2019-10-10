@@ -35,7 +35,7 @@ Note: if the version on github is not rendering properly, try [this one, via nbv
 
 ``` python
 >>> import plotly.graph_objects as go
->>> import cmplot
+>>> from cmplot import cmplot
 
  #call the cmplot directly inside a plotly Figure function as:
 
