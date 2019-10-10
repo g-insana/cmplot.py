@@ -19,13 +19,13 @@ Since by default it does not symmetrically mirror the density curves, it allows 
 ``` bash
 > pip3 install cmplot
 ```
-  ([Python Package Index](https://pypi.org/project/cmplot/))
+  (from [Python Package Index](https://pypi.org/project/cmplot/))
 
 or:
 ```
 > pip3 install git+git://github.com/g-insana/cmplot.py.git
 ```
-  ([GitHub](https://github.com/g-insana/cmplot.py/).
+  (from [GitHub](https://github.com/g-insana/cmplot.py/)).
 
 There is also a [version in Julia](https://github.com/g-insana/CMPlot.jl/).
 
