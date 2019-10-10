@@ -30,7 +30,7 @@ Check the online documentation and jupyter notebook for usage and examples at th
 
 ``` python
 >>> import plotly.graph_objects as go
->>> import cmplot
+>>> from cmplot import cmplot
 
  #call the cmplot directly inside a plotly Figure function as:
 
