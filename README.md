@@ -1,5 +1,8 @@
 # cmplot.py - Cloudy Mountain Plot in python
 
+[![Build Status](https://travis-ci.org/g-insana/cmplot.py.svg?branch=master)](https://travis-ci.org/g-insana/cmplot.py)
+[![PyPI](https://img.shields.io/pypi/v/cmplot)](https://pypi.org/project/cmplot/)
+
 An informative RDI categorical distribution plot inspired by Violin, Bean and Pirate Plots.
 
 (RDI = Raw data + Descriptive statistics + Inferential statistics)
