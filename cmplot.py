@@ -236,12 +236,12 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
         Returns:
             hdi: highest density interval of posterior for specified credible_mass
         """
-        n = len(x_val)
-        v = n - 1
-        mu = np.mean(x_val)
-        se = np.std(x_val) / np.sqrt(n)
-        ts = se * t.rvs(v, size=iterations) + mu
-        hdi = hdi_from_mcmc(ts, credible_mass=credible_mass)
+        num = len(x_val)
+        dof = num - 1
+        xmean = np.mean(x_val)
+        std_err = np.std(x_val) / np.sqrt(num)
+        t_s = std_err * t.rvs(dof, size=iterations) + xmean
+        hdi = hdi_from_mcmc(t_s, credible_mass=credible_mass)
         return hdi
 
     # # 1) Arguments' parsing:
@@ -249,7 +249,7 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
     dfsymbols = data_frame.columns #all column names
 
     if xcol is None:
-        print("ERROR: you need to specify xcol argument, e.g. 'Species'")
+        raise TypeError("you need to specify xcol argument, e.g. 'Species'")
 
     xsymbols = []
     if isinstance(xcol, list):
@@ -259,8 +259,7 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
 
     #check sanity of specified xcol(s)
     if len(set(xsymbols).intersection(set(dfsymbols))) != len(set(xsymbols)):
-        print("ERROR: xcol contains symbols not present in the dataframe")
-        return None, None
+        raise ValueError("xcol contains symbols not present in the dataframe")
 
     ysymbols = []
     if ycol is None:
@@ -273,24 +272,20 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
 
         #check sanity of specified ycols
         if len(set(ysymbols).intersection(set(dfsymbols))) != len(set(ysymbols)):
-            print("ERROR: ycol contains symbols not present in the dataframe")
-            return None, None
+            raise ValueError("ycol contains symbols not present in the dataframe")
 
         if set(xsymbols).intersection(set(ysymbols)): #check for common symbols
-            print("ERROR: ycol and xcol should not contain the same symbol(s)!")
-            return None, None
+            raise ValueError("ycol and xcol should not contain the same symbol(s)!")
 
     if orientation not in ('v', 'h'):
-        print("ERROR: if defining orientation, use either h or v")
-        return None, None
+        raise ValueError("if defining orientation, use either h or v")
 
     if inf not in ('hdi', 'ci', 'iqr', 'none'):
-        print("ERROR: if defining inference band type, use either \
+        raise ValueError("if defining inference band type, use either \
                 ci (Student's t-test confidence intervals) \
                 or hdi (Bayesian Posterior Highest Density Interval) \
                 or iqr (InterQuartileRange) \
                 or none (no band)")
-        return None, None
 
     plot_title = ""
     if title is None:
@@ -380,8 +375,7 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
         sides = ["negative"]
         pointpositions = [pointsdistance]
     else:
-        print("ERROR: if defining side, use one of both|alt|pos|neg")
-        return None, None
+        raise ValueError("if defining side, use one of both|alt|pos|neg")
 
     if pointsoverdens:
         #invert the values and hence the sides of the raw points positions
@@ -427,9 +421,8 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
         if isinstance(pointshapes, list):
             markersymbols = pointshapes
         else:
-            print("ERROR: pointshapes must be an Array of markersymbol strings, \
+            raise TypeError("pointshapes must be an Array of markersymbol strings, \
                     e.g. [\"circle\", \"diamond\"]")
-            return None, None
     else:
         markersymbols = ["circle", "diamond", "cross", "triangle-up",
                          "triangle-left", "triangle-right",
@@ -595,16 +588,16 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
         margin={'l': 80, 'r': 10, 't': 10, 'b': 40},
         legend={'x': 1.1, 'y': 1.1, 'xanchor': "right"},
         xaxis={
-            'showline': True, 'showticklabels': True, \
-            'zeroline': True, 'visible': True, 'showgrid': orientation == "v" \
+            'showline': True, 'showticklabels': True,
+            'zeroline': True, 'visible': True, 'showgrid': orientation == "v"
         },
         yaxis={
-            'showline': True, 'showticklabels': True, \
-            'zeroline': True, 'visible': True, 'showgrid': orientation == "h" \
+            'showline': True, 'showticklabels': True,
+            'zeroline': True, 'visible': True, 'showgrid': orientation == "h"
         },
-        xaxis_title=str(', '.join(ysymbols)) if orientation == "h" \
+        xaxis_title=str(', '.join(ysymbols)) if orientation == "h"
         else str(', '.join(xsymbols)),
-        yaxis_title=str(', '.join(xsymbols)) if orientation == "h" \
+        yaxis_title=str(', '.join(xsymbols)) if orientation == "h"
         else str(', '.join(ysymbols)),
     )
 

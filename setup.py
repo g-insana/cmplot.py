@@ -5,7 +5,7 @@ with open("README_brief.md", "r") as fh:
 
 setuptools.setup(
     name="cmplot",
-    version="0.9.0",
+    version="0.9.2",
     author="Dr Giuseppe Insana",
     author_email="insana@insana.net",
     description="Cloudy Mountain Plot",
@@ -16,7 +16,7 @@ setuptools.setup(
     py_modules=["cmplot"],
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: AGPL License",
+        "License :: OSI Approved :: GNU Affero General Public License v3",
         "Operating System :: OS Independent",
     ],
     install_requires=[
