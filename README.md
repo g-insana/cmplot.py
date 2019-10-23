@@ -20,6 +20,10 @@ Since by default it does not symmetrically mirror the density curves, it allows 
 
 The plotting function comes with a large number of options, allowing full customization of the results. On the other hand it is also automatic enough to be able to work with only two arguments: a dataframe and the label/symbol of the dataframe column containing your X (the categorical data).
 
+## Documentation
+
+Please refer to the [online documentation at readthedocs.io](https://cmplot.readthedocs.io)
+
 ## Download and installation
 
 `cmplot` is pure python code. It has no platform-specific dependencies and should thus work on all platforms. It requires the packages `plotly numpy scipy pandas`. The latest version of `cmplot` can be installed by typing either:

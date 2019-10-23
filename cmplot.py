@@ -18,6 +18,7 @@
     along with this program. If not, see <http://www.gnu.org/licenses/>.
 
     Contact the developer: <http://insana.net/i/#contact>
+    Online documentation: <https://cmplot.readthedocs.io>
 """
 
 from random import shuffle
@@ -37,9 +38,11 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
     """
     Cloudy Mountain Plot:
         an RDI (Raw data, Descriptive statistics, and Inferential data)
-        categorial distribution plot inspired by Violin, Bean and Pirate plots
+        categorical distribution plot inspired by Violin, Bean and Pirate plots
 
     Coded in Julia & Python by Dr Giuseppe Insana, Aug & Oct 2019
+
+    Online documentation: <https://cmplot.readthedocs.io>
 
     Arguments:
         The only mandatory arguments for CMPlot are a dataframe containing the

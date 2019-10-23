@@ -12,6 +12,12 @@ An informative RDI categorical distribution plot inspired by Violin, Bean and Pi
 
 Since by default it does not symmetrically mirror the density curves, it allows immediate comparisions of distributions side-by-side.
 
+## Documentation
+
+* [Online documentation at readthedocs.io](https://cmplot.readthedocs.io) 
+
+* [GitHub page](https://github.com/g-insana/cmplot.py/)
+
 ## Download and installation
 
 `cmplot` is pure python code. It has no platform-specific dependencies and should thus work on all platforms. It requires the packages `plotly numpy scipy pandas`. The latest version of `cmplot` can be installed by typing either:
@@ -28,10 +34,6 @@ pip3 install git+git://github.com/g-insana/cmplot.py.git
   (from [GitHub](https://github.com/g-insana/cmplot.py/)).
 
 There is also a [version in Julia](https://github.com/g-insana/CMPlot.jl/).
-
-## Documentation
-
-Check the online documentation and jupyter notebook for usage and examples at the [GitHub page](https://github.com/g-insana/cmplot.py/).
 
 ## Quickstart
 
