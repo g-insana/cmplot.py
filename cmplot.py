@@ -21,7 +21,7 @@
     Online documentation: <https://cmplot.readthedocs.io>
 """
 
-from random import shuffle
+from random import shuffle, randint
 from scipy.stats import t
 import plotly.graph_objects as go
 import numpy as np
@@ -307,6 +307,8 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
     sideindex = 0
     xlabelsoverride = {} #useful when xsuperimposed
     xlabelindex = 0
+    rand_int = randint(1,10000)
+
     #separating distributions for each categorical x:
     for label, sub_data_frame in data_frame.groupby(xsymbols):
         for ysymbol in ysymbols: #by default for all Ys present (or all those specified)
@@ -482,7 +484,7 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
                          else pointpositions[i % len(pointpositions)],
                 spanmode="soft",
                 scalemode="count",
-                scalegroup=data['xvalue'],
+                scalegroup=data['xvalue'] + str(rand_int),
                 legendgroup=legendgroup,
                 line={'width': 1, 'color': linecolors[i % len(linecolors)]},
                 side=sides[sides_x[data['x_1']] % len(sides)] \
@@ -512,7 +514,7 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
                     width=0,
                     name="",
                     showlegend=False,
-                    scalegroup=data['xvalue'],
+                    scalegroup=data['xvalue'] + str(rand_int),
                     legendgroup=legendgroup,
                     #hoverinfo="none",
                     points="all",
@@ -551,7 +553,7 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
                     name="",
                     showlegend=False,
                     #scalemode="count",
-                    scalegroup=data['xvalue'],
+                    scalegroup=data['xvalue'] + str(rand_int),
                     legendgroup=legendgroup,
                     hoverinfo="none",
                     points="outliers" if markoutliers else False,

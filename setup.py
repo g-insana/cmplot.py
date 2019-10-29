@@ -5,7 +5,7 @@ with open("README_brief.md", "r") as fh:
 
 setuptools.setup(
     name="cmplot",
-    version="0.9.3",
+    version="0.9.4",
     author="Dr Giuseppe Insana",
     author_email="insana@insana.net",
     description="Cloudy Mountain Plot",
