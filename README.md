@@ -94,6 +94,10 @@ The default behaviour is to plot each value of the categorical variable (or each
 
 Override for labelling (and placing) the plots of the categorical variables. Only relevant when using `xsuperimposed`
 
+* `ylabel`: string or list of strings
+
+Override for labelling the dependent variables. If not specified, the labels for the dataframe ycol are used.
+
 * `title`: string
 
 If not specified, the plot title will be automatically created from the names of the variables plotted.
@@ -113,6 +117,10 @@ Set to True to flip the order of alternation between sides for the kernel densit
 * `ycolorgroups`: boolean, default is True
 
 Set to False to have the function assign a separate colour when plotting different values of the categorical variable. Leave as True if all should be coloured the same.
+
+* `spanmode`: 'soft' | 'hard', default is 'soft'
+
+Controls the rounding of the kernel density curves or their sharp drop at their extremities. With 'hard' the span goes from the sample's minimum to its maximum value and no further.
 
 * `pointsoverdens`: boolean, default is False
 

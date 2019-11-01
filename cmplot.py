@@ -29,12 +29,13 @@ import pandas as pd
 
 
 def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
-           xsuperimposed=False, xlabel=None, title=None, orientation="h",
-           inf="hdi", conf_level=0.95, hdi_iter=10000, showboxplot=True,
-           ycolorgroups=True, side="alt", altsidesflip=False,
-           showpoints=True, pointsoverdens=False, pointsopacity=0.4,
-           markoutliers=True, colorrange=None, colorshift=0,
-           pointshapes=None, pointsdistance=0.6, pointsmaxdisplayed=0):
+           xsuperimposed=False, xlabel=None, ylabel=None, title=None,
+           orientation="h", inf="hdi", conf_level=0.95, hdi_iter=10000,
+           showboxplot=True, ycolorgroups=True, side="alt",
+           altsidesflip=False, spanmode=None, showpoints=True,
+           pointsoverdens=False, pointsopacity=0.4, markoutliers=True,
+           colorrange=None, colorshift=0, pointshapes=None,
+           pointsdistance=0.6, pointsmaxdisplayed=0):
     """
     Cloudy Mountain Plot:
         an RDI (Raw data, Descriptive statistics, and Inferential data)
@@ -88,6 +89,11 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
         Override for labelling (and placing) the plots of the categorical
         variables. Only relevant when using `xsuperimposed`
 
+        * `ylabel`: string or list of strings
+
+        Override for labelling the dependent variables. If not specified,
+        the labels for the dataframe ycol are used.
+
         * `title`: string
 
         If not specified, the plot title will be automatically created from the
@@ -114,6 +120,12 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
         Set to False to have the function assign a separate colour when plotting
         different values of the categorical variable. Leave as True if all
         should be coloured the same.
+
+        * `spanmode`: 'soft' | 'hard', default is 'soft'
+
+        Controls the rounding of the kernel density curves or their sharp drop at
+        their extremities. With 'hard' the span goes from the sample's minimum to
+        its maximum value and no further.
 
         * `pointsoverdens`: boolean, default is False
 
@@ -300,6 +312,20 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
         if not isinstance(xlabel, list): #if it's not already an array, make it so
             xlabel = [xlabel]
 
+    if ylabel is not None:
+        if not isinstance(ylabel, list): #if it's not already an array, make it so
+            ylabel = [ylabel]
+        if len(ysymbols) != len(ylabel):
+            print("WARNING: you specified ", len(ylabel),
+                  " ylabel overrides but you are plotting ", len(ysymbols),
+                  " dependent variables => labels will be cycled")
+
+    if spanmode is None:
+        spanmode = 'soft'
+    else:
+        if spanmode not in ('soft', 'hard'):
+            raise ValueError("if defining spanmode, only 'soft' and 'hard' are allowed values")
+
     # # 2) divide up data by xsymbols and then ysymbol and calculate stats, preparing datas array:
 
     datas = []
@@ -307,21 +333,30 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
     sideindex = 0
     xlabelsoverride = {} #useful when xsuperimposed
     xlabelindex = 0
-    rand_int = randint(1,10000)
+    ylabelindex = 0
+    rand_int = randint(1, 10000)
 
     #separating distributions for each categorical x:
     for label, sub_data_frame in data_frame.groupby(xsymbols):
         for ysymbol in ysymbols: #by default for all Ys present (or all those specified)
             xvalue = label if not isinstance(label, tuple) else "&".join([str(x) for x in label])
             xname = "&".join(xsymbols)
-            yname = ysymbol
+            if ylabel is None:
+                yname = ysymbol
+            else:
+                yname = ylabel[ylabelindex % len(ylabel)]
+                ylabelindex += 1
+                print("NOTE: ylabel {} -> {}".format(ysymbol, yname))
             #x = ["&".join(r) for r in sub_data_frame[xsymbols].values]
             y_val = sub_data_frame[ysymbol].values
-            y_lo, y_hi = ttest_bayes_ci(y_val, iterations=hdi_iter,
-                                        credible_mass=conf_level) if inf == "hdi" \
-                else t_test_ci(y_val, conf_level=conf_level) if inf == "ci" \
-                else np.quantile(y_val, [0.25, 0.75]) if inf == "iqr" \
-                else (None, None)
+            if len(y_val) < 2: #cannot compute inf
+                y_lo, y_hi = (None, None)
+            else:
+                y_lo, y_hi = ttest_bayes_ci(y_val, iterations=hdi_iter,
+                                            credible_mass=conf_level) if inf == "hdi" \
+                    else t_test_ci(y_val, conf_level=conf_level) if inf == "ci" \
+                    else np.quantile(y_val, [0.25, 0.75]) if inf == "iqr" \
+                    else (None, None)
             #print("confidence: {} .. {}".format(y_lo, y_hi))
             #y_mode = maximum(modes(y_val))
             if xsuperimposed:
@@ -332,7 +367,7 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
                     if thislabel not in xlabelsoverride:
                         xlabelsoverride[thislabel] = xlabel[xlabelindex % len(xlabel)]
                         xlabelindex += 1
-                        print("NOTE: label {} -> {}".format(thislabel, xlabelsoverride[thislabel]))
+                        print("NOTE: xlabel {} -> {}".format(thislabel, xlabelsoverride[thislabel]))
                     x_0 = xlabelsoverride[thislabel]
                 if len(xsymbols) == 1:
                     x_1 = xvalue
@@ -414,13 +449,13 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
         colorend = 350
 
     colorstep = colorend // colorarraylength #integer division
-    fillcolors = ["hsla({}, 50%, 50%,0.3)".format(j) for j in
+    fillcolors = ["hsla({}, 50%, 50%, 0.3)".format(j) for j in
                   range(colorstart, colorend + 1, colorstep)]
-    linecolors = ["hsla({}, 20%, 20%,0.8)".format(j) for j in
+    linecolors = ["hsla({}, 20%, 20%, 0.8)".format(j) for j in
                   range(colorstart, colorend + 1, colorstep)]
-    markerlinecolors = ["hsla({}, 20%, 20%,0.4)".format(j) for j in
+    markerlinecolors = ["hsla({}, 20%, 20%, 0.4)".format(j) for j in
                         range(colorstart, colorend + 1, colorstep)]
-    markerfillcolors = ["hsla({}, 70%, 70%,1)".format(j) for j in
+    markerfillcolors = ["hsla({}, 70%, 70%, 1)".format(j) for j in
                         range(colorstart, colorend + 1, colorstep)]
     if pointshapes is not None: #override given
         if isinstance(pointshapes, list):
@@ -436,11 +471,11 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
                          "star-square", "star-diamond"]
         shuffle(markersymbols) #change randomly symbols at each call of the function
 
-    cifillcolors = ["hsla({}, 45%, 45%,0.4)".format(j) for j in
+    cifillcolors = ["hsla({}, 45%, 45%, 0.4)".format(j) for j in
                     range(colorstart, colorend + 1, colorstep)]
-    boxlinecolors = ["hsla({}, 30%, 30%,1)".format(j) for j in
+    boxlinecolors = ["hsla({}, 30%, 30%, 1)".format(j) for j in
                      range(colorstart, colorend + 1, colorstep)]
-    outliercolors = ["hsla({}, 50%, 50%,0.9)".format(j) for j in
+    outliercolors = ["hsla({}, 50%, 50%, 0.9)".format(j) for j in
                      range(colorstart, colorend + 1, colorstep)]
 
     # # 4) Define traces:
@@ -482,7 +517,7 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
                 pointpos=pointpositions[sides_x[data['x_1']] % len(pointpositions)] \
                          if xsuperimposed \
                          else pointpositions[i % len(pointpositions)],
-                spanmode="soft",
+                spanmode=spanmode,
                 scalemode="count",
                 scalegroup=data['xvalue'] + str(rand_int),
                 legendgroup=legendgroup,
@@ -526,7 +561,7 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
                              else pointpositions[i % len(pointpositions)],
                     meanline_visible=False,
                     box_visible=False,
-                    spanmode="soft",
+                    spanmode=spanmode,
                     fillcolor="rgba(0, 0, 0, 0)",
                     line={'width': 0, 'color': "rgba(0, 0, 0, 0)"},
                     side=sides[sides_x[data['x_1']] % len(sides)] \
@@ -561,7 +596,7 @@ def cmplot(data_frame: pd.core.frame.DataFrame, xcol=None, ycol=None,
                     pointpos=0,
                     meanline_visible=False,
                     box_visible=showboxplot,
-                    box={'fillcolor': "rgba(0,0,0,0)", 'width': 0.25, \
+                    box={'fillcolor': "rgba(0, 0, 0, 0)", 'width': 0.25, \
                          'line_color': boxlinecolors[i % len(boxlinecolors)], 'line_width': 0.5},
                     spanmode="manual",
                     span=(data['lo'], data['hi']),
