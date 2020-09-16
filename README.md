@@ -1,6 +1,7 @@
 # cmplot.py - Cloudy Mountain Plot in python
 
-[![Build Status](https://travis-ci.org/g-insana/cmplot.py.svg?branch=master)](https://travis-ci.org/g-insana/cmplot.py)
+[![Build Status](https://travis-ci.com/g-insana/cmplot.py.svg?branch=master)](https://travis-ci.com/g-insana/cmplot.py)
+https://travis-ci.com/g-insana/CMPlot.jl.svg?branch=master
 [![PyPI](https://img.shields.io/pypi/v/cmplot)](https://pypi.org/project/cmplot/)
 [![Documentation Status](https://readthedocs.org/projects/cmplot/badge/?version=latest)](https://cmplot.readthedocs.io/en/latest/?badge=latest)
 
