@@ -9,3 +9,6 @@
 
 # Jupyter notebook
 *.ipynb  text
+
+cmplot_python3_with_examples.ipynb linguist-vendored
+
