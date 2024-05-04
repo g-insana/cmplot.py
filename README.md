@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.com/g-insana/cmplot.py.svg?branch=master)](https://travis-ci.com/g-insana/cmplot.py)
 [![PyPI](https://img.shields.io/pypi/v/cmplot)](https://pypi.org/project/cmplot/)
 [![Documentation Status](https://readthedocs.org/projects/cmplot/badge/?version=latest)](https://cmplot.readthedocs.io/en/latest/?badge=latest)
+[![DOI](https://zenodo.org/badge/213249573.svg)](https://zenodo.org/doi/10.5281/zenodo.11113472)
 
 An informative RDI categorical distribution plot inspired by Violin, Bean and Pirate Plots.
 
