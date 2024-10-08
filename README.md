@@ -36,7 +36,7 @@ pip3 install --upgrade cmplot
 
 or:
 ``` bash
-pip3 install git+git://github.com/g-insana/cmplot.py.git
+pip3 install git+https://github.com/g-insana/cmplot.py.git
 ```
   (from [GitHub](https://github.com/g-insana/cmplot.py/)).
 
